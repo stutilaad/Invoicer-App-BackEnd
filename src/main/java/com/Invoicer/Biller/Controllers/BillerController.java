@@ -46,6 +46,7 @@ public class BillerController {
 
         return billerRepository.save(updatedBiller);
     }
+    @DeleteMapping(value = "/delete/{id}")
     public void DeleteBiller(@PathVariable String id){
         Biller deletedBiller = billerRepository.findById(id).get();
         billerRepository.delete(deletedBiller);
