@@ -3,7 +3,7 @@ package com.Invoicer.Biller.Models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "customer_info")
+@Document(collection = "billers")
 public class Biller {
 
     @Id
@@ -15,7 +15,6 @@ public class Biller {
     private String iban;
     private String company;
     private String website;
-
     public String getId() {
         return id;
     }

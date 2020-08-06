@@ -17,24 +17,17 @@ public class BillerController {
     @Autowired
     private BillerRepository billerRepository;
 
-
-    @GetMapping(value = "/test")
-    public int test() {
-        System.out.println("Inside");
-        return 4;
-    }
-
-    @GetMapping(value = "/billers")
+    @GetMapping(value = "/biller")
     public List<Biller> GetBillers() {
         return billerRepository.findAll();
     }
 
-    @PostMapping(value = "/insertbiller")
+    @PostMapping(value = "/biller")
     public Biller InsertBiller(@RequestBody Biller biller) {
         return billerRepository.save(biller);
     }
 
-    @PostMapping(value = "/updatebiller/{id}")
+    @PutMapping(value = "/biller")
     public Biller UpdateBiller(@RequestBody Biller billerDetails, @PathVariable String id) {
 
         Biller updatedBiller = billerRepository.findById(id).get();
@@ -46,7 +39,7 @@ public class BillerController {
 
         return billerRepository.save(updatedBiller);
     }
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/biller/{id}")
     public void DeleteBiller(@PathVariable String id){
         Biller deletedBiller = billerRepository.findById(id).get();
         billerRepository.delete(deletedBiller);
