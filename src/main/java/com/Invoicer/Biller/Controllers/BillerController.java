@@ -28,9 +28,9 @@ public class BillerController {
     }
 
     @PutMapping(value = "/biller")
-    public Biller UpdateBiller(@RequestBody Biller billerDetails, @PathVariable String id) {
+    public Biller UpdateBiller(@RequestBody Biller billerDetails) {
 
-        Biller updatedBiller = billerRepository.findById(id).get();
+        Biller updatedBiller = billerRepository.findById(billerDetails.getId()).get();
 
         updatedBiller.setName(billerDetails.getName());
         updatedBiller.setAddress(billerDetails.getAddress());
