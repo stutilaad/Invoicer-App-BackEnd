@@ -15,6 +15,7 @@ public class Biller {
     private String iban;
     private String company;
     private String website;
+    private String password;
     public String getId() {
         return id;
     }
@@ -79,4 +80,11 @@ public class Biller {
         this.website = website;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
