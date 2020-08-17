@@ -58,8 +58,10 @@ public class BillerController {
     }
     //login api
     @PostMapping(value = "/login")
-    public void loginUser(@RequestBody Biller billerDetails){
-
+    public boolean loginUser(@RequestBody Biller biller){
+        Biller loginBiller = billerRepository.findByEmail(biller.getEmail());
+        System.out.println(loginBiller);
+       return bCryptPasswordEncoder.matches(biller.getPassword(),loginBiller.getPassword());
     }
 }
 

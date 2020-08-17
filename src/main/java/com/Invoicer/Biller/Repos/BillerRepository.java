@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BillerRepository extends MongoRepository<Biller, String>{
+    public Biller findByEmail(String email);
 }
