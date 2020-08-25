@@ -11,9 +11,6 @@ public class BillerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BillerApplication.class, args);
 	}
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
+
 }
 

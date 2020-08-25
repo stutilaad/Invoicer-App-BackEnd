@@ -1,10 +1,14 @@
 package com.Invoicer.Biller.Controllers;
 
 import com.Invoicer.Biller.Models.Biller;
+import com.Invoicer.Biller.Models.LoginBillerRequest;
 import com.Invoicer.Biller.Models.Name;
 import com.Invoicer.Biller.Repos.BillerRepository;
+import com.Invoicer.Biller.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,10 @@ public class BillerController {
     private BillerRepository billerRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtUtils jwtUtils;
 //GET api
     @GetMapping(value = "/biller")
     public List<Biller> GetBillers() {
@@ -30,7 +38,7 @@ public class BillerController {
         return billerRepository.findById(id).get();
     }
 //POST api
-    @PostMapping(value = "/biller")
+    @PostMapping(value = "/api/biller")
     public Biller InsertBiller(@RequestBody Biller biller) {
 
         String encodedPassword=bCryptPasswordEncoder.encode(biller.getPassword());
@@ -57,11 +65,21 @@ public class BillerController {
         billerRepository.delete(deletedBiller);
     }
     //login api
-    @PostMapping(value = "/login")
-    public boolean loginUser(@RequestBody Biller biller){
-        Biller loginBiller = billerRepository.findByEmail(biller.getEmail());
-        System.out.println(loginBiller);
-       return bCryptPasswordEncoder.matches(biller.getPassword(),loginBiller.getPassword());
+    @PostMapping(value = "/api/login")
+
+    public String loginUser(@RequestBody LoginBillerRequest loginBillerRequest){
+        String token="";
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    loginBillerRequest.getUsername(),loginBillerRequest.getPassword()));
+
+            Biller biller=billerRepository.findByEmail( loginBillerRequest.getUsername());
+            token=jwtUtils.generateToken(biller.getId());
+        }
+        catch(Exception e){
+           e.printStackTrace();
+        }
+       return token;
     }
 }
 
