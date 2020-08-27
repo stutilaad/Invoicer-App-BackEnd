@@ -2,6 +2,7 @@ package com.Invoicer.Biller.Controllers;
 
 import com.Invoicer.Biller.Models.Biller;
 import com.Invoicer.Biller.Models.LoginBillerRequest;
+import com.Invoicer.Biller.Models.LoginBillerResponse;
 import com.Invoicer.Biller.Models.Name;
 import com.Invoicer.Biller.Repos.BillerRepository;
 import com.Invoicer.Biller.utils.JwtUtils;
@@ -67,7 +68,7 @@ public class BillerController {
     //login api
     @PostMapping(value = "/api/login")
 
-    public String loginUser(@RequestBody LoginBillerRequest loginBillerRequest){
+    public LoginBillerResponse loginUser(@RequestBody LoginBillerRequest loginBillerRequest){
         String token="";
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -78,8 +79,11 @@ public class BillerController {
         }
         catch(Exception e){
            e.printStackTrace();
+           throw e;
         }
-       return token;
+        LoginBillerResponse loginBillerResponse= new LoginBillerResponse();
+        loginBillerResponse.setToken(token);
+       return loginBillerResponse;
     }
 }
 

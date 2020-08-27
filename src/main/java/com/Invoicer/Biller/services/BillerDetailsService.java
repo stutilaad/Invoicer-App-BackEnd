@@ -18,6 +18,11 @@ public class BillerDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Biller biller=billerRepository.findByEmail(email);
+        if(biller!=null){
         return new BillerDetails(biller);
+        }
+        else{
+            throw new UsernameNotFoundException("Biller not found");
+        }
     }
 }
