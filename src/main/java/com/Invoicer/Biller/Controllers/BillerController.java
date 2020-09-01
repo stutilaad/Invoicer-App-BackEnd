@@ -75,7 +75,7 @@ public class BillerController {
                     loginBillerRequest.getUsername(),loginBillerRequest.getPassword()));
 
             Biller biller=billerRepository.findByEmail( loginBillerRequest.getUsername());
-            token=jwtUtils.generateToken(biller.getId());
+            token=jwtUtils.generateToken(biller.getEmail());
         }
         catch(Exception e){
            e.printStackTrace();

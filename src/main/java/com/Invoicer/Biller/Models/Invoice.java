@@ -9,6 +9,7 @@ import java.util.ArrayList;
 @Document(collection = "invoices")
 public class Invoice {
     @Id
+    private String Id;
     private String payerName;
     private String payerEmail;
     private Instant dueDate;
@@ -21,6 +22,14 @@ public class Invoice {
     private Double total;
     private String createdBy;
     private Instant creationTime;
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
 
     public String getPayerName() {
         return payerName;

@@ -57,6 +57,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>com.github.jhonnymertz</groupId>
+			<artifactId>java-wkhtmltopdf-wrapper</artifactId>
+			<version>1.1.12-RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>
